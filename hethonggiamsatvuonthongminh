@@ -1,0 +1,48 @@
+Nguyễn Phương Trâm
+K205480106037
+Đề: Hệ thống giám sát vườn thông minh IoT
+Cơ sở dữ liệu (MySQL):
+Lưu trữ dữ liệu từ các cảm biến (độ ẩm đất, nhiệt độ, ánh sáng).
+Thiết kế bảng với các khóa chính (PK) và khóa ngoại (FK).
+Sử dụng stored procedures (SP_) để tương tác với cơ sở dữ liệu.
+Module đọc dữ liệu (Python + FastAPI):
+Tạo API lấy dữ liệu từ các cảm biến qua giao thức MQTT.
+Đóng gói thành service chạy liên tục bằng NSSM.
+Node-RED:
+Tự động gọi API Python để lấy dữ liệu.
+Xử lý và lưu dữ liệu vào MySQL qua stored procedures.
+Web Application:
+Hiển thị dữ liệu từ cơ sở dữ liệu bằng biểu đồ (độ ẩm đất, nhiệt độ, ánh sáng).
+Cập nhật dữ liệu thời gian thực nếu cần.
+4. Sơ đồ tổng quát hệ thống
+
+5. Chi tiết các phần
+1. Cơ sở dữ liệu
+Bảng sensor_data:
+id (PK)
+sensor_id (FK)
+soil_moisture
+temperature
+light_intensity
+timestamp
+Bảng sensors:
+sensor_id (PK)
+sensor_location
+sensor_type
+Stored procedures:
+SP_InsertSensorData(sensor_id, soil_moisture, temperature, light_intensity, timestamp)
+SP_GetSensorData(sensor_id, start_time, end_time)
+2. Module đọc dữ liệu
+Nguồn dữ liệu:
+Cảm biến đo độ ẩm đất, nhiệt độ, ánh sáng.
+Giao tiếp qua MQTT với thư viện paho-mqtt.
+API Endpoint:
+GET /sensor-data/{sensor_id}
+3. Node-RED
+Luồng xử lý:
+Inject Node -> HTTP Request Node -> Function Node -> MySQL Node
+4. Web Application
+Front-end: HTML, CSS, JavaScript, Chart.js để vẽ biểu đồ.
+Back-end: Flask hoặc FastAPI để tạo API lấy dữ liệu từ MySQL.
+Chức năng:
+Hiển thị biểu đồ độ ẩm đất, nhiệt độ, ánh sáng theo thời gian.
